@@ -26,7 +26,7 @@ AMD Ryzen 5 1600x 3.6〜4.0GHz
 void SieveOfEratosthenes(long arry[], long siz);
 long argCheck(int agc, char *agv[]);
 //
-#define CLOCK_TEST  // 速度計測用
+//#define CLOCK_TEST  // 速度計測用
 /* ----- Caution！ -----
  * SIZ_LIMはMAX_INT/2(≒1073740000)以上にはしないこと
  * 篩の中でi+iがintの範囲を超えてしまうため正常に動きません
@@ -43,7 +43,7 @@ long argCheck(int agc, char *agv[]);
  */
 void SieveOfEratosthenes(long arry[], long siz)
 {
-    long lim = (long)ceil(sqrt(siz+2));  // 最大値の平方根+αまで調べればいい
+    long lim = (long)(ceil(sqrt(siz+2)));  // 最大値の平方根+αまで調べればいい
     for (long i = 2; i < lim; i++) {
         if (arry[i]) {
             long tmp = arry[i];  // 素数を取り出す
@@ -89,7 +89,7 @@ int main(int agc, char *agv[])
         return (int)(max + 1);  // エラーは１～３が返る
     }
     // メモリ確保
-    long *ptr = (long *)calloc(max, sizeof(long));
+    long *ptr = (long *)(calloc((size_t)max, sizeof(long)));
     if (ptr == NULL) {
         fputs("メモリの確保に失敗しました。\n", stderr);
         return 4;
@@ -115,7 +115,7 @@ int main(int agc, char *agv[])
 #endif
     tp = ptr;
 #ifndef CLOCK_TEST
-    int col_siz = (int)log10((double)max);
+    int col_siz = (int)(log10((double)max));
     if (col_siz < 3) {
         col_siz = 3;
     }
@@ -126,7 +126,7 @@ int main(int agc, char *agv[])
         if (*tp != 0) {
             cnt++;
 #ifndef CLOCK_TEST
-            printf("%*d ", col_siz, *tp);
+            printf("%*ld ", col_siz, *tp);
             if ((cnt & 7) == 0) {
                 putchar('\n');
             }
